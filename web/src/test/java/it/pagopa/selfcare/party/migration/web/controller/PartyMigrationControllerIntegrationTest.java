@@ -6,7 +6,6 @@ import it.pagopa.selfcare.commons.web.security.JwtAuthenticationToken;
 import it.pagopa.selfcare.party.migration.connector.rest.client.SourceRestClient;
 import it.pagopa.selfcare.party.migration.connector.rest.client.TargetRestClient;
 import it.pagopa.selfcare.utils.YamlPropertySourceFactory;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,8 +32,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
                 PartyMigrationControllerIntegrationTest.TestConfig.class
         },
         properties = {
-                "app.source.pageSize:1",
-                "app.target.parallelism:1",
+                "app.source.pageSize:2",
+                "app.target.parallelism:2",
 
                 // wiremock configuration
                 "rest-client.source.base-url=http://localhost:${wiremock.server.port}/source",
@@ -89,11 +88,9 @@ class PartyMigrationControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.content().string("OK"));
 
         Mockito.verify(sourceRestClientSpy)
-                .findInstitutions(0,1);
+                .findInstitutions(0,2);
         Mockito.verify(sourceRestClientSpy)
-                .findInstitutions(1,1);
-        Mockito.verify(sourceRestClientSpy)
-                .findInstitutions(2,1);
+                .findInstitutions(1,2);
 
         verifyInstitutionOnTarget("INSTITUTIONID__0");
 
@@ -117,9 +114,7 @@ class PartyMigrationControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.content().string("OK"));
 
         Mockito.verify(sourceRestClientSpy)
-                .findUsers(0,1);
-        Mockito.verify(sourceRestClientSpy)
-                .findUsers(1,1);
+                .findUsers(0,2);
 
         verifyUserOnTarget("USERID__0");
     }
@@ -141,13 +136,9 @@ class PartyMigrationControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.content().string("OK"));
 
         Mockito.verify(sourceRestClientSpy)
-                .findTokens(0,1);
+                .findTokens(0,2);
         Mockito.verify(sourceRestClientSpy)
-                .findTokens(1,1);
-        Mockito.verify(sourceRestClientSpy)
-                .findTokens(2,1);
-        Mockito.verify(sourceRestClientSpy)
-                .findTokens(3,1);
+                .findTokens(1,2);
 
         verifyTokenOnTarget("TOKENID__0");
         verifyTokenOnTarget("TOKENID__1");

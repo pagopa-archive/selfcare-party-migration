@@ -82,6 +82,7 @@ class MigrationServiceImpl implements MigrationService {
         );
     }
 
+    @SuppressWarnings({"squid:S2142","squid:S3776"})
     private <T> boolean migrate(
             String flowName,
             Function<T, String> idGetter,
@@ -105,46 +106,34 @@ class MigrationServiceImpl implements MigrationService {
 
         while ((!stopOnError || result.get())) {
             List<T> sourceData = sourceRetriever.apply(page++, sourcePageSize);
-            if(sourceData.isEmpty()){
-                break;
+
+            if (!sourceData.isEmpty()) {
+                fetched += sourceData.size();
+                ForkJoinTask<?> tasks = forkJoinPool.submit(() ->
+                        sourceData.parallelStream()
+                                .forEach(source -> {
+                                    if (stopOnError && !result.get()) {
+                                        return;
+                                    }
+                                    processed.incrementAndGet();
+                                    SecurityContextHolder.setContext(securityContext);
+
+                                    if (storeAndCheck(flowName, source, idGetter, targetPersister, targetRetrieverById)) {
+                                        successfulMigrated.incrementAndGet();
+                                    } else {
+                                        result.compareAndSet(true, false);
+                                    }
+                                }));
+
+                try {
+                    tasks.get(5, TimeUnit.MINUTES);
+                } catch (InterruptedException | ExecutionException | TimeoutException e) {
+                    throw new IllegalStateException(String.format("Something gone wrong while waiting for store operations of page %d", page), e);
+                }
             }
 
-            fetched += sourceData.size();
-            ForkJoinTask<?> tasks = forkJoinPool.submit(() ->
-                    sourceData.parallelStream()
-                            .forEach(source -> {
-                                if (stopOnError && !result.get()) {
-                                    return;
-                                }
-                                processed.incrementAndGet();
-
-                                String id = idGetter.apply(source);
-
-                                try {
-                                    SecurityContextHolder.setContext(securityContext);
-                                    targetPersister.accept(source);
-
-                                    T target = targetRetrieverById.apply(id);
-                                    if (!target.equals(source)) {
-                                        result.compareAndSet(true, false);
-                                        log.error("Stored {} doesn't match with source:\nsource: {}\ntarget: {}",
-                                                flowName,
-                                                source.toString().replace('\n', ' '),
-                                                target.toString().replace('\n', ' '));
-                                    } else {
-                                        successfulMigrated.incrementAndGet();
-                                    }
-                                } catch (Exception e) {
-                                    result.compareAndSet(true, false);
-                                    log.error("Something gone wrong while storing {} source: {}",
-                                            flowName, source, e);
-                                }
-                            }));
-
-            try {
-                tasks.get(5, TimeUnit.MINUTES);
-            } catch (InterruptedException | ExecutionException | TimeoutException e) {
-                throw new IllegalStateException(String.format("Something gone wrong while waiting for store operations of page %d", page), e);
+            if (sourceData.size() != sourcePageSize) {
+                break;
             }
         }
 
@@ -158,5 +147,32 @@ class MigrationServiceImpl implements MigrationService {
                 successfulMigrated.get());
 
         return result.get();
+    }
+
+    private <T> boolean storeAndCheck(
+            String flowName,
+            T source,
+            Function<T, String> idGetter,
+            Consumer<T> targetPersister,
+            Function<String, T> targetRetrieverById) {
+        try {
+            String id = idGetter.apply(source);
+            targetPersister.accept(source);
+
+            T target = targetRetrieverById.apply(id);
+            if (!target.equals(source)) {
+                log.error("Stored {} doesn't match with source:\nsource: {}\ntarget: {}",
+                        flowName,
+                        source.toString().replace('\n', ' '),
+                        target.toString().replace('\n', ' '));
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            log.error("Something gone wrong while storing {} source: {}",
+                    flowName, source, e);
+            return false;
+        }
     }
 }

@@ -9,10 +9,10 @@
     },
     "queryParameters": {
       "page": {
-        "equalTo": "2"
+        "equalTo": "1"
       },
       "size": {
-        "equalTo": "1"
+        "equalTo": "2"
       }
     }
   },
