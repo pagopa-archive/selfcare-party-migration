@@ -1,7 +1,8 @@
 package it.pagopa.selfcare.party.migration.connector;
 
-import it.pagopa.selfcare.party.migration.connector.model.NewDesignToken;
-import it.pagopa.selfcare.party.migration.connector.model.NewDesignUser;
+import it.pagopa.selfcare.party.migration.connector.generated.NewDesignInstitution;
+import it.pagopa.selfcare.party.migration.connector.generated.NewDesignToken;
+import it.pagopa.selfcare.party.migration.connector.generated.NewDesignUser;
 
 import java.util.List;
 

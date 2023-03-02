@@ -2,8 +2,9 @@ package it.pagopa.selfcare.party.migration.core;
 
 import it.pagopa.selfcare.party.migration.connector.SourceDataConnectorService;
 import it.pagopa.selfcare.party.migration.connector.TargetDataConnectorService;
-import it.pagopa.selfcare.party.migration.connector.model.NewDesignToken;
-import it.pagopa.selfcare.party.migration.connector.model.NewDesignUser;
+import it.pagopa.selfcare.party.migration.connector.generated.NewDesignInstitution;
+import it.pagopa.selfcare.party.migration.connector.generated.NewDesignToken;
+import it.pagopa.selfcare.party.migration.connector.generated.NewDesignUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ class MigrationServiceImpl implements MigrationService {
     public boolean migrateUsers() {
         return migrate(
                 "USERS",
-                NewDesignUser::id,
+                NewDesignUser::getId,
                 sourceDataConnectorService::getUsers,
                 targetDataConnectorService::saveUser,
                 targetDataConnectorService::findUserById
@@ -61,7 +62,7 @@ class MigrationServiceImpl implements MigrationService {
     public boolean migrateInstitutions() {
         return migrate(
                 "INSTITUTIONS",
-                NewDesignInstitution::id,
+                NewDesignInstitution::getId,
                 sourceDataConnectorService::getInstitutions,
                 targetDataConnectorService::saveInstitution,
                 targetDataConnectorService::findInstitutionById
@@ -72,7 +73,7 @@ class MigrationServiceImpl implements MigrationService {
     public boolean migrateTokens() {
         return migrate(
                 "TOKENS",
-                NewDesignToken::id,
+                NewDesignToken::getId,
                 sourceDataConnectorService::getTokens,
                 targetDataConnectorService::saveToken,
                 targetDataConnectorService::findTokenById
