@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/source/tokens",
+    "headers": {
+      "Authorization": {
+        "matches": "Bearer AUTHTOKEN"
+      }
+    },
+    "queryParameters": {
+      "page": {
+        "equalTo": "3"
+      },
+      "size": {
+        "equalTo": "1"
+      }
+    }
+  },
+  "response": {
+    "status": "200",
+    "jsonBody": [],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

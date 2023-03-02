@@ -32,6 +32,7 @@ logging:
     additional-info: ",%X{X-Client-Ip:-}]"
 
 app:
+  stopOnError: ${STOP_ON_ERROR:true}
   source:
     pageSize: ${SOURCE_PAGE_SIZE:1000}
   target:

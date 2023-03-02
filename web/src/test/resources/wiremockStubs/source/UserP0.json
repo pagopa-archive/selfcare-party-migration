@@ -1,0 +1,76 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/source/users",
+    "headers": {
+      "Authorization": {
+        "matches": "Bearer AUTHTOKEN"
+      }
+    },
+    "queryParameters": {
+      "page": {
+        "equalTo": "0"
+      },
+      "size": {
+        "equalTo": "1"
+      }
+    }
+  },
+  "response": {
+    "status": "200",
+    "jsonBody": [
+      {
+        "bindings": [
+          {
+            "createdAt": "2023-01-01T00:00:00.000Z",
+            "institutionId": "INSTITUTIONID",
+            "products": [
+              {
+                "createdAt": "2023-01-01T00:01:00.000Z",
+                "env": "ROOT",
+                "productId": "PRODUCTID",
+                "productRoles": [
+                  {
+                    "createdAt": "2023-01-01T00:01:00.000Z",
+                    "productRole": "referente operativo",
+                    "relationshipId": "RELATIONSHIPID__0",
+                    "status": "ACTIVE",
+                    "updatedAt": "2023-01-01T00:02:00.000Z"
+                  }
+                ],
+                "role": "OPERATOR",
+                "updatedAt": "2023-01-01T00:02:00.000Z"
+              },
+              {
+                "createdAt": "2023-01-01T00:03:00.000Z",
+                "env": "ROOT",
+                "productId": "PRODUCTID2",
+                "productRoles": [
+                  {
+                    "createdAt": "2023-01-01T00:03:00.000Z",
+                    "productRole": "referente operativo 3",
+                    "relationshipId": "RELATIONSHIPID2__0",
+                    "status": "ACTIVE"
+                  },
+                  {
+                    "createdAt": "2023-01-01T00:04:00.000Z",
+                    "productRole": "referente operativo",
+                    "relationshipId": "RELATIONSHIPID3__0",
+                    "status": "ACTIVE"
+                  }
+                ],
+                "role": "OPERATOR"
+              }
+            ]
+          }
+        ],
+        "createdAt": "2023-01-01T00:01:00.000Z",
+        "id": "USERID__0",
+        "updatedAt": "2023-01-01T00:04:00.000Z"
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

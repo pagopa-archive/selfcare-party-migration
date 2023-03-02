@@ -1,0 +1,118 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPathPattern": "/target/token",
+    "headers": {
+      "Authorization": {
+        "matches": "Bearer AUTHTOKEN"
+      }
+    },
+    "bodyPatterns" : [ {
+      "equalToJson" :  {
+        "checksum": "checksum__0",
+        "contractTemplate": "contractTemplate__0",
+        "contractVersion": "contractVersion__0",
+        "createdAt": "2023-01-01T00:00:00.000Z",
+        "expiringDate": "2023-01-11T00:00:00.000Z",
+        "id": "TOKENID__0",
+        "institutionId": "INSTITUTIONID",
+        "institutionUpdate": {
+          "address": "INSTITUTION_address__0",
+          "dataProtectionOfficer": {
+            "address": "INSTITUTION_dataProtectionOfficer_address__0",
+            "email": "INSTITUTION_dataProtectionOfficer_email__0",
+            "pec": "INSTITUTION_dataProtectionOfficer_pec__0"
+          },
+          "description": "INSTITUTION_description__0",
+          "digitalAddress": "INSTITUTION_digitalAddress__0",
+          "geographicTaxonomies": [
+            {
+              "code": "geocode__0",
+              "desc": "geodesc__0"
+            }
+          ],
+          "institutionType": "PSP",
+          "paymentServiceProvider": {
+            "abiCode": "INSTITUTION_paymentServiceProvider_abiCode__0",
+            "businessRegisterNumber": "INSTITUTION_paymentServiceProvider_businessRegisterNumber__0",
+            "legalRegisterName": "INSTITUTION_paymentServiceProvider_legalRegisterName__0",
+            "legalRegisterNumber": "INSTITUTION_paymentServiceProvider_legalRegisterNumber__0",
+            "vatNumberGroup": false
+          },
+          "taxCode": "INSTITUTION_geographicTaxonomies__0",
+          "zipCode": "INSTITUTION_taxCode__08"
+        },
+        "productId": "PRODUCTID",
+        "status": "ACTIVE",
+        "users": [
+          {
+            "relationshipId": "RELATIONSHIPID__0",
+            "role": "MANAGER",
+            "userId": "USERID"
+          },
+          {
+            "relationshipId": "RELATIONSHIPID2__0",
+            "role": "DELEGATE",
+            "userId": "USERID2"
+          }
+        ]
+      },
+      "ignoreArrayOrder" : true
+    } ]
+  },
+  "response": {
+    "status": "200",
+    "jsonBody": {
+      "checksum": "checksum__0",
+      "contractTemplate": "contractTemplate__0",
+      "contractVersion": "contractVersion__0",
+      "createdAt": "2023-01-01T00:00:00.000Z",
+      "expiringDate": "2023-01-11T00:00:00.000Z",
+      "id": "TOKENID__0",
+      "institutionId": "INSTITUTIONID",
+      "institutionUpdate": {
+        "address": "INSTITUTION_address__0",
+        "dataProtectionOfficer": {
+          "address": "INSTITUTION_dataProtectionOfficer_address__0",
+          "email": "INSTITUTION_dataProtectionOfficer_email__0",
+          "pec": "INSTITUTION_dataProtectionOfficer_pec__0"
+        },
+        "description": "INSTITUTION_description__0",
+        "digitalAddress": "INSTITUTION_digitalAddress__0",
+        "geographicTaxonomies": [
+          {
+            "code": "geocode__0",
+            "desc": "geodesc__0"
+          }
+        ],
+        "institutionType": "PSP",
+        "paymentServiceProvider": {
+          "abiCode": "INSTITUTION_paymentServiceProvider_abiCode__0",
+          "businessRegisterNumber": "INSTITUTION_paymentServiceProvider_businessRegisterNumber__0",
+          "legalRegisterName": "INSTITUTION_paymentServiceProvider_legalRegisterName__0",
+          "legalRegisterNumber": "INSTITUTION_paymentServiceProvider_legalRegisterNumber__0",
+          "vatNumberGroup": false
+        },
+        "taxCode": "INSTITUTION_geographicTaxonomies__0",
+        "zipCode": "INSTITUTION_taxCode__08"
+      },
+      "productId": "PRODUCTID",
+      "status": "ACTIVE",
+      "users": [
+        {
+          "relationshipId": "RELATIONSHIPID__0",
+          "role": "MANAGER",
+          "userId": "USERID"
+        },
+        {
+          "relationshipId": "RELATIONSHIPID2__0",
+          "role": "DELEGATE",
+          "userId": "USERID2"
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

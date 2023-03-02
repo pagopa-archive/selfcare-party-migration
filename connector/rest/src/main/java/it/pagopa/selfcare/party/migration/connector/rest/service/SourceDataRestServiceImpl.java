@@ -20,16 +20,16 @@ public class SourceDataRestServiceImpl implements SourceDataConnectorService {
 
     @Override
     public List<NewDesignUser> getUsers(int page, int pageSize) {
-        return sourceRestClient.findNewDesignUsers(page, pageSize);
+        return sourceRestClient.findUsers(page, pageSize);
     }
 
     @Override
     public List<NewDesignInstitution> getInstitutions(int page, int pageSize) {
-        return sourceRestClient.findNewDesignInstitutions(page, pageSize);
+        return sourceRestClient.findInstitutions(page, pageSize);
     }
 
     @Override
     public List<NewDesignToken> getTokens(int page, int pageSize) {
-        return sourceRestClient.findNewDesignTokens(page, pageSize);
+        return sourceRestClient.findTokens(page, pageSize);
     }
 }

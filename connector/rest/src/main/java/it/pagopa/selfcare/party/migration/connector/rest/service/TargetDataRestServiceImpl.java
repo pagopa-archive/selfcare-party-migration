@@ -17,32 +17,33 @@ public class TargetDataRestServiceImpl implements TargetDataConnectorService {
     }
 
     @Override
-    public void saveUser(NewDesignUser user) {
-        //TODO
+    public NewDesignUser saveUser(NewDesignUser user) {
+
+        return targetRestClient.saveUser(user);
     }
 
     @Override
     public NewDesignUser findUserById(String id) {
-        return null;//TODO
+        return targetRestClient.findUserById(id);
     }
 
     @Override
-    public void saveInstitution(NewDesignInstitution institution) {
-//TODO
+    public NewDesignInstitution saveInstitution(NewDesignInstitution institution) {
+        return targetRestClient.saveInstitution(institution);
     }
 
     @Override
     public NewDesignInstitution findInstitutionById(String id) {
-        return null;//TODO
+        return targetRestClient.findInstitutionById(id);
     }
 
     @Override
-    public void saveToken(NewDesignToken token) {
-//TODO
+    public NewDesignToken saveToken(NewDesignToken token) {
+        return targetRestClient.saveToken(token);
     }
 
     @Override
     public NewDesignToken findTokenById(String id) {
-        return null;//TODO
+        return targetRestClient.findTokenById(id);
     }
 }

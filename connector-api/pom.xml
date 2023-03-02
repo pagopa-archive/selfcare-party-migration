@@ -48,8 +48,12 @@
                                 <swaggerAnnotations>false</swaggerAnnotations>
                                 <openApiNullable>false</openApiNullable>
                                 <modelPackage>it.pagopa.selfcare.party.migration.connector.generated</modelPackage>
-                                <dateLibrary>java8</dateLibrary>
+                                <dateLibrary>custom</dateLibrary>
                             </configOptions>
+                            <typeMappings>
+                                <typeMapping>DateTime=String</typeMapping>
+                                <typeMapping>Date=String</typeMapping>
+                            </typeMappings>
                         </configuration>
                     </execution>
                 </executions>

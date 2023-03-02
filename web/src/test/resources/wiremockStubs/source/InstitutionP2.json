@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/source/institutions",
+    "headers": {
+      "Authorization": {
+        "matches": "Bearer AUTHTOKEN"
+      }
+    },
+    "queryParameters": {
+      "page": {
+        "equalTo": "2"
+      },
+      "size": {
+        "equalTo": "1"
+      }
+    }
+  },
+  "response": {
+    "status": "200",
+    "jsonBody": [],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

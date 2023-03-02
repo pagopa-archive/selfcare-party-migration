@@ -29,6 +29,19 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
         </dependency>
+
+        <!--test purpose-->
+        <dependency>
+            <groupId>it.pagopa.selfcare</groupId>
+            <artifactId>selc-party-migration-connector-rest</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-contract-wiremock</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

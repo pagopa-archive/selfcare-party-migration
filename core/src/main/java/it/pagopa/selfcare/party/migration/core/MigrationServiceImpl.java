@@ -7,10 +7,12 @@ import it.pagopa.selfcare.party.migration.connector.generated.NewDesignToken;
 import it.pagopa.selfcare.party.migration.connector.generated.NewDesignUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiFunction;
@@ -89,7 +91,6 @@ class MigrationServiceImpl implements MigrationService {
         log.info("Starting migration of {}", flowName);
 
         int page = 0;
-        List<T> sourceData;
         AtomicBoolean result = new AtomicBoolean(true);
 
         long fetched = 0;
@@ -100,12 +101,19 @@ class MigrationServiceImpl implements MigrationService {
 
         long startTime = System.currentTimeMillis();
 
-        while ((!stopOnError || result.get()) && !(sourceData = sourceRetriever.apply(page++, sourcePageSize)).isEmpty()) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+
+        while ((!stopOnError || result.get())) {
+            List<T> sourceData = sourceRetriever.apply(page++, sourcePageSize);
+            if(sourceData.isEmpty()){
+                break;
+            }
+
             fetched += sourceData.size();
-            forkJoinPool.submit(() ->
+            ForkJoinTask<?> tasks = forkJoinPool.submit(() ->
                     sourceData.parallelStream()
                             .forEach(source -> {
-                                if(stopOnError && !result.get()){
+                                if (stopOnError && !result.get()) {
                                     return;
                                 }
                                 processed.incrementAndGet();
@@ -113,27 +121,38 @@ class MigrationServiceImpl implements MigrationService {
                                 String id = idGetter.apply(source);
 
                                 try {
+                                    SecurityContextHolder.setContext(securityContext);
                                     targetPersister.accept(source);
 
                                     T target = targetRetrieverById.apply(id);
                                     if (!target.equals(source)) {
                                         result.compareAndSet(true, false);
                                         log.error("Stored {} doesn't match with source:\nsource: {}\ntarget: {}",
-                                                flowName, source, target);
+                                                flowName,
+                                                source.toString().replace('\n', ' '),
+                                                target.toString().replace('\n', ' '));
                                     } else {
                                         successfulMigrated.incrementAndGet();
                                     }
-                                } catch (Exception e){
+                                } catch (Exception e) {
                                     result.compareAndSet(true, false);
                                     log.error("Something gone wrong while storing {} source: {}",
                                             flowName, source, e);
                                 }
                             }));
+
+            try {
+                tasks.get(5, TimeUnit.MINUTES);
+            } catch (InterruptedException | ExecutionException | TimeoutException e) {
+                throw new IllegalStateException(String.format("Something gone wrong while waiting for store operations of page %d", page), e);
+            }
         }
 
+        forkJoinPool.shutdown();
+
         log.info("Migration of {} completed in {} ms: fetched {}, processed {}, successful stored {}",
-                startTime - System.currentTimeMillis(),
                 flowName,
+                System.currentTimeMillis() - startTime,
                 fetched,
                 processed.get(),
                 successfulMigrated.get());

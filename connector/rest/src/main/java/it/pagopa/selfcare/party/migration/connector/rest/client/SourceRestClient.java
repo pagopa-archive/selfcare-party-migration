@@ -12,12 +12,12 @@ import java.util.List;
 @FeignClient(name = "${rest-client.source.serviceCode}", url = "${rest-client.source.base-url}")
 public interface SourceRestClient {
 
-    @GetMapping("/institutions")
-    List<NewDesignInstitution> findNewDesignInstitutions(@RequestParam("page") Integer page, @RequestParam("size") Integer size);
+    @GetMapping("${rest-client.source.institutions.path}")
+    List<NewDesignInstitution> findInstitutions(@RequestParam("page") Integer page, @RequestParam("size") Integer size);
 
-    @GetMapping("/tokens")
-    List<NewDesignToken> findNewDesignTokens(@RequestParam("page") Integer page, @RequestParam("size") Integer size);
+    @GetMapping("${rest-client.source.tokens.path}")
+    List<NewDesignToken> findTokens(@RequestParam("page") Integer page, @RequestParam("size") Integer size);
 
-    @GetMapping("/users")
-    List<NewDesignUser> findNewDesignUsers(@RequestParam("page") Integer page, @RequestParam("size") Integer size);
+    @GetMapping("${rest-client.source.users.path}")
+    List<NewDesignUser> findUsers(@RequestParam("page") Integer page, @RequestParam("size") Integer size);
 }
