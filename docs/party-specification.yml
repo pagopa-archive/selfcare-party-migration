@@ -1,0 +1,2125 @@
+openapi: 3.0.3
+info:
+  title: Party Management Micro Service
+  description: This service is the party manager
+  version: '{{version}}'
+  contact:
+    name: API Support
+    url: 'http://www.example.com/support'
+    email: support@example.com
+  termsOfService: 'http://swagger.io/terms/'
+  x-api-id: an x-api-id
+  x-summary: an x-summary
+servers:
+  - url: '/party-management/{{version}}'
+    description: This service is the party manager
+tags:
+  - name: party
+    description: Manipulate party information
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: external
+    description: External id endpoints
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: public
+    description: Public endpoints
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: health
+    description: Verify service status
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: newDesignExposure
+    description: To expose data modelling them as the new design
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+security:
+  - bearerAuth: [ ]
+paths:
+  '/persons/{id}':
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: Person ID
+    get:
+      summary: Retrieves Person by ID
+      tags:
+        - party
+      responses:
+        '200':
+          description: Person
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Person not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: getPersonById
+      description: 'returns the identified person, if any.'
+    head:
+      tags:
+        - party
+      summary: Verify if a Person exists for a given ID
+      description: Return ok
+      operationId: existsPersonById
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Person to check
+          required: true
+          schema:
+            description: The Person ID.
+            type: string
+            format: uuid
+            example: e72dd279-5f52-4039-afbe-2b7e432c490e
+      responses:
+        '200':
+          description: Person exists
+        '404':
+          description: Person not found
+  /persons:
+    post:
+      tags:
+        - party
+      summary: Create a new person
+      description: Return ok
+      operationId: createPerson
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonSeed'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '409':
+          description: Person already exists
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /institutions:
+    post:
+      tags:
+        - party
+      summary: Create an institution
+      description: Return ok
+      operationId: createInstitution
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstitutionSeed'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+        '409':
+          description: Institution already exists
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /institutions/{id}:
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Institution ID
+    get:
+      summary: Retrieves Institution by ID
+      tags:
+        - party
+      responses:
+        '200':
+          description: Institution
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Institution not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: getInstitutionById
+      description: 'returns the identified institution, if any.'
+    head:
+      tags:
+        - party
+      summary: Verify if an institution exists for a given institutionId
+      description: Return ok
+      operationId: existsInstitutionById
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Institution to check
+          required: true
+          schema:
+            description: to be defined
+            type: string
+            format: uuid
+            example: e72dd279-5f52-4039-afbe-2b7e432c490e
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: Institution not found
+  /institutions/{id}/update:
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+        description: Institution ID
+    post:
+      summary: Updates an Institution by ID
+      tags:
+        - party
+      operationId: updateInstitutionById
+      description: 'update the identified institution, if any.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Institution'
+      responses:
+        '200':
+          description: Institution
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Institution not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /institutions/{id}/attributes:
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+          example: e72dd279-5f52-4039-afbe-2b7e432c490e
+        name: id
+        in: path
+        required: true
+        description: Institution ID
+    get:
+      summary: Retrieves attributes
+      tags:
+        - party
+      responses:
+        '200':
+          description: Party Attributes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attributes'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Party not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: getPartyAttributes
+      description: 'returns the attributes of the identified party, if any.'
+    post:
+      tags:
+        - party
+      summary: Retrieve the institution attributes for the given institutionId
+      description: Return ok
+      operationId: addInstitutionAttributes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attributes'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+        '404':
+          description: Institution not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /external/institutions/{externalId}:
+    parameters:
+      - schema:
+          type: string
+        name: externalId
+        in: path
+        required: true
+        description: External Institution ID
+    get:
+      summary: Retrieves Institution by ID
+      tags:
+        - external
+      responses:
+        '200':
+          description: Institution
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Institution not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: getInstitutionByExternalId
+      description: 'returns the identified institution, if any.'
+  /external/institutions/product/{productId}:
+    parameters:
+      - schema:
+          type: string
+        name: productId
+        in: path
+        required: true
+        description: Retrieve Institutions by product ID
+    get:
+      summary: Retrieves Institutions by product ID
+      tags:
+        - external
+      responses:
+        '200':
+          description: Institutions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institutions'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Relationships not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: getInstitutionsByProductId
+      description: 'returns the identified institution, if any.'
+  /relationships:
+    post:
+      tags:
+        - party
+      summary: Create a new relationship between a Person and an Institution
+      description: Return ok
+      operationId: createRelationship
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelationshipSeed'
+      responses:
+        '201':
+          description: Created Relationship
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationship'
+        '409':
+          description: Relationship already exists
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    get:
+      tags:
+        - party
+      summary: Return a list of relationships
+      description: Return ok
+      operationId: getRelationships
+      parameters:
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: roles
+          description: comma separated sequence of role to filter the response with
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/PartyRole'
+            default: [ ]
+          explode: false
+        - in: query
+          name: states
+          description: comma separated sequence of states to filter the response with
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/RelationshipState'
+            default: [ ]
+          explode: false
+        - in: query
+          name: products
+          description: comma separated sequence of products to filter the response with
+          schema:
+            type: array
+            items:
+              type: string
+            default: [ ]
+          explode: false
+        - in: query
+          name: productRoles
+          description: comma separated sequence of product roles to filter the response with
+          schema:
+            type: array
+            items:
+              type: string
+            default: [ ]
+          explode: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationships'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /relationships/{relationshipId}:
+    delete:
+      tags:
+        - party
+      summary: Deletes relationship
+      description: Deletes the relationship identified by relationshipId
+      operationId: deleteRelationshipById
+      parameters:
+        - name: relationshipId
+          in: path
+          description: The ID of the Relationship to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: relationship deleted
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Relationship not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    get:
+      tags:
+        - party
+      summary: Retrieve the relationship for the given relationshipId
+      description: Return relationship
+      operationId: getRelationshipById
+      parameters:
+        - name: relationshipId
+          in: path
+          description: The ID of the Relationship to retrieve
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationship'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Relationship not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  '/relationships/{relationshipId}/suspend':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: relationshipId
+        in: path
+        required: true
+        description: Relationship ID
+    post:
+      summary: Suspend Relationship by ID
+      tags:
+        - party
+      responses:
+        '204':
+          description: Relationship suspended
+        '404':
+          description: Relationship not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: suspendPartyRelationshipById
+      description: 'Suspend relationship by ID'
+  '/relationships/{relationshipId}/activate':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: relationshipId
+        in: path
+        required: true
+        description: Relationship ID
+    post:
+      summary: Activate Relationship by plaftorm ID
+      tags:
+        - party
+      responses:
+        '204':
+          description: Relationship activated
+        '404':
+          description: Relationship not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: activatePartyRelationshipById
+      description: 'Activate Relationship by ID'
+  '/relationships/{relationshipId}/enable':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: relationshipId
+        in: path
+        required: true
+        description: Relationship ID
+    post:
+      summary: Enable Relationship by plaftorm ID from ToBeValidated to Pending
+      tags:
+        - party
+      responses:
+        '204':
+          description: Relationship activated
+        '404':
+          description: Relationship not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: enablePartyRelationshipById
+      description: 'Activate Relationship by ID'
+  /relationships/{relationshipId}/institution:
+    get:
+      security: [ ]
+      tags:
+        - public
+      summary: Retrieve the institutionid for the given relationshipId
+      description: Return institutionid
+      operationId: getInstitutionIdFromRelationshipId
+      parameters:
+        - name: relationshipId
+          in: path
+          description: The ID of the Relationship to retrieve
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstitutionId'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Relationship not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /tokens:
+    post:
+      tags:
+        - party
+      summary: Create a new token
+      description: Return ok
+      operationId: createToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenSeed'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/TokenText'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /tokens/{tokenId}:
+    get:
+      security: [ ]
+      tags:
+        - public
+      summary: Retrieve token info
+      description: Return ok
+      operationId: getToken
+      parameters:
+        - name: tokenId
+          in: path
+          description: The token id to retrieve
+          required: true
+          schema:
+            description: to be defined
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenInfo'
+        '404':
+          description: Token not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    post:
+      security: [ ]
+      tags:
+        - public
+      summary: Consume a token
+      description: Return ok
+      operationId: consumeToken
+      parameters:
+        - name: tokenId
+          in: path
+          description: The token id to consume
+          required: true
+          schema:
+            description: to be defined
+            type: string
+            format: uuid
+      requestBody:
+        description: onboarding signed document
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - doc
+              properties:
+                doc:
+                  type: string
+                  format: binary
+        required: true
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Token not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      security: [ ]
+      tags:
+        - public
+      summary: Invalidate a token
+      description: Return ok
+      operationId: invalidateToken
+      parameters:
+        - name: tokenId
+          in: path
+          description: The token id to invalidate
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Token not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /tokens/{tokenId}/complete:
+    post:
+      security: [ ]
+      tags:
+        - public
+      summary: Consume a token
+      description: Return ok
+      operationId: consumeTokenWithoutContract
+      parameters:
+        - name: tokenId
+          in: path
+          description: The token id to consume
+          required: true
+          schema:
+            description: to be defined
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OnboardingContract'
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Token not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /tokens/{tokenId}/verify:
+    post:
+      security: [ ]
+      tags:
+        - public
+      summary: Verify if the token is already consumed
+      description: Return ok
+      operationId: verifyToken
+      parameters:
+        - name: tokenId
+          in: path
+          description: The token id to verify
+          required: true
+          schema:
+            description: to be defined
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenInfo'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Token not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Token already consumed
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /tokens/{tokenId}/digest:
+    post:
+      security: [{}]
+      tags:
+        - party
+      summary: Update the token digest
+      description: Return ok
+      operationId: updateTokenDigest
+      parameters:
+        - name: tokenId
+          in: path
+          description: The token id to verify
+          required: true
+          schema:
+            description: to be defined
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DigestSeed'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenText'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Token not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Token already consumed
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  '/bulk/institutions':
+    post:
+      summary: Retrieves a collection of institutions
+      tags:
+        - party
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkPartiesSeed'
+      responses:
+        '200':
+          description: collection of institutions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkInstitutions'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Institutions not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: bulkInstitutions
+      description: 'returns a collection of all the parties for the corresponding identifiers.'
+  /status:
+    get:
+      tags:
+        - health
+      summary: Health status endpoint
+      description: Return ok
+      operationId: getStatus
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  '/institutions/bygeotaxonomies':
+    get:
+      summary: Retrieves a collection of institutions having one or more geographic taxonomies
+      tags:
+        - party
+      parameters:
+        - name: geoTaxonomies
+          description: Comma separated list of the geographic taxonomies to search
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: searchMode
+          description: "The search mode to perform, as default 'any'"
+          in: query
+          schema:
+            $ref: '#/components/schemas/CollectionSearchMode'
+      responses:
+        '200':
+          description: collection of institutions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institutions'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      operationId: findByGeoTaxonomies
+      description: 'returns a collection of all the parties satisfying a geographic taxonomy based search.'
+  '/newdesign/users':
+    get:
+      operationId: findNewDesignUsers
+      description: Retrieves a collection of users modelled as the new design
+      tags:
+        - newDesignExposure
+      parameters:
+        - name: userIds
+          description: Comma separated list of userId to extract. if none provided, it will return all data
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The page number to access (0 indexed, defaults to 0)
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          description: Number of records per page (defaults to 20, max 2000)
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: integer
+            format: int32
+            default: 10
+      responses:
+        '200':
+          description: collection of users modelled as new design
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewDesignUser'
+        '500':
+          description: Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  '/newdesign/institutions':
+    get:
+      operationId: findNewDesignInstitutions
+      description: Retrieves a collection of institutions modelled as the new design
+      tags:
+        - newDesignExposure
+      parameters:
+        - name: institutionIds
+          description: Comma separated list of institutionIds to extract. if none provided, it will return all data
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The page number to access (0 indexed, defaults to 0)
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          description: Number of records per page (defaults to 20, max 2000)
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: integer
+            format: int32
+            default: 10
+      responses:
+        '200':
+          description: collection of institutions modelled as new design
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewDesignInstitution'
+        '500':
+          description: Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  '/newdesign/tokens':
+    get:
+      operationId: findNewDesignTokens
+      description: Retrieves a collection of tokens modelled as the new design
+      tags:
+        - newDesignExposure
+      parameters:
+        - name: tokenIds
+          description: Comma separated list of tokenIds to extract. if none provided, it will return all data
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The page number to access (0 indexed, defaults to 0)
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          description: Number of records per page (defaults to 20, max 2000)
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: integer
+            format: int32
+            default: 10
+      responses:
+        '200':
+          description: collection of tokens modelled as new design
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewDesignToken'
+        '500':
+          description: Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+components:
+  schemas:
+    PersonSeed:
+      type: object
+      properties:
+        id:
+          description: Internal id.
+          type: string
+          format: uuid
+      required:
+        - id
+      additionalProperties: false
+    Person:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 97c0f418-bcb3-48d4-825a-fe8b29ae68e5
+      required:
+        - id
+      additionalProperties: false
+    InstitutionSeed:
+      type: object
+      properties:
+        externalId:
+          description: external institution id
+          example: 'c_f205'
+          type: string
+        originId:
+          description: origin institution id (e.g iPA code)
+          example: 'c_f205'
+          type: string
+        description:
+          type: string
+          example: AGENCY X
+        digitalAddress:
+          example: email@pec.mail.org
+          format: email
+          type: string
+        address:
+          example: via del campo
+          type: string
+        zipCode:
+          example: 20100
+          type: string
+        taxCode:
+          description: institution tax code
+          type: string
+        origin:
+          type: string
+          description: The origin form which the institution has been retrieved
+          example: IPA
+        institutionType:
+          type: string
+          description: institution type
+          example: PA
+        attributes:
+          $ref: '#/components/schemas/Attributes'
+        products:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InstitutionProduct'
+          description: Institution products info
+        paymentServiceProvider:
+          $ref: '#/components/schemas/PaymentServiceProvider'
+        dataProtectionOfficer:
+          $ref: '#/components/schemas/DataProtectionOfficer'
+        geographicTaxonomies:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeographicTaxonomy'
+        rea:
+          description: The institution REA
+          type: string
+        shareCapital:
+          type: string
+          description: The institution share capital value
+          example: 10000
+        businessRegisterPlace:
+          type: string
+          description: The business register place
+          example: Rome
+        supportEmail:
+          type: string
+          description: The support email contact
+        supportPhone:
+          type: string
+          description: The support phone contact
+        imported:
+          type: boolean
+          description: True if institution is stored from batch api
+      required:
+        - externalId
+        - originId
+        - description
+        - digitalAddress
+        - address
+        - zipCode
+        - taxCode
+        - attributes
+        - origin
+      additionalProperties: false
+    Institution:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 97c0f418-bcb3-48d4-825a-fe8b29ae68e5
+        externalId:
+          description: external institution id
+          example: 'c_f205'
+          type: string
+        originId:
+          description: origin institution id (e.g iPA code)
+          example: 'c_f205'
+          type: string
+        description:
+          type: string
+          example: AGENCY X
+        digitalAddress:
+          example: email@pec.mail.org
+          format: email
+          type: string
+        address:
+          example: via del campo
+          type: string
+        zipCode:
+          example: 20100
+          type: string
+        taxCode:
+          description: institution tax code
+          type: string
+        origin:
+          type: string
+          description: The origin form which the institution has been retrieved
+          example: IPA
+        institutionType:
+          type: string
+          description: institution type
+          example: PA
+        rea:
+          description: The institution REA
+          type: string
+        shareCapital:
+          type: string
+          description: The institution share capital value
+          example: 10000
+        businessRegisterPlace:
+          type: string
+          description: The business register place
+          example: Rome
+        supportEmail:
+          type: string
+          description: The support email contact
+        supportPhone:
+          type: string
+          description: The support phone contact
+        imported:
+          type: boolean
+          description: True if institution is stored from batch api
+        products:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InstitutionProduct'
+          description: Institution products info
+        attributes:
+          $ref: '#/components/schemas/Attributes'
+        paymentServiceProvider:
+          $ref: '#/components/schemas/PaymentServiceProvider'
+        dataProtectionOfficer:
+          $ref: '#/components/schemas/DataProtectionOfficer'
+        geographicTaxonomies:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeographicTaxonomy'
+      required:
+        - id
+        - externalId
+        - originId
+        - description
+        - digitalAddress
+        - address
+        - zipCode
+        - taxCode
+        - attributes
+        - origin
+        - products
+        - geographicTaxonomies
+      additionalProperties: false
+    InstitutionId:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 97c0f418-bcb3-48d4-825a-fe8b29ae68e5
+        to:
+          type: string
+          format: uuid
+          example: 97c0f418-bcb3-48d4-825a-fe8b29ae68e5
+        product:
+          type: string
+          description: product ID
+        digitalAddress:
+          example: email@pec.mail.org
+          format: email
+          type: string
+      required:
+        - id
+        - to
+        - product
+        - digitalAddress
+      additionalProperties: false
+    BulkInstitutions:
+      type: object
+      required:
+        - found
+        - notFound
+      properties:
+        found:
+          type: array
+          description: the collection of institutions found.
+          items:
+            $ref: '#/components/schemas/Institution'
+        notFound:
+          type: array
+          items:
+            type: string
+          description: the identifiers of institutions not found.
+    BulkPartiesSeed:
+      type: object
+      required:
+        - partyIdentifiers
+      properties:
+        partyIdentifiers:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: the identifiers of party
+    PartyRole:
+      type: string
+      description: Represents the generic available role types for the relationship
+      enum:
+        - MANAGER
+        - DELEGATE
+        - SUB_DELEGATE
+        - OPERATOR
+    RelationshipState:
+      type: string
+      description: Represents the party relationship state
+      enum:
+        - PENDING
+        - ACTIVE
+        - SUSPENDED
+        - DELETED
+        - REJECTED
+        - TOBEVALIDATED
+    Attributes:
+      type: array
+      items:
+        $ref: '#/components/schemas/Attribute'
+    Attribute:
+      type: object
+      additionalProperties: false
+      properties:
+        origin:
+          type: string
+          description: 'origin of the certified attribute, e.g.: IPA'
+        code:
+          type: string
+          description: 'original identifier as defined at origin side, e.g.: IPA attribute code'
+        description:
+          type: string
+          description: 'human readable description of the attribute'
+      required:
+        - origin
+        - code
+        - description
+    RelationshipProductSeed:
+      type: object
+      properties:
+        id:
+          type: string
+        role:
+          type: string
+      required:
+        - id
+        - role
+    RelationshipSeed:
+      type: object
+      properties:
+        from:
+          type: string
+          format: uuid
+          description: person ID
+        to:
+          type: string
+          format: uuid
+          description: institution ID
+        role:
+          $ref: '#/components/schemas/PartyRole'
+        product:
+          $ref: '#/components/schemas/RelationshipProductSeed'
+        pricingPlan:
+          type: string
+          description: pricing plan
+        institutionUpdate:
+          $ref: '#/components/schemas/InstitutionUpdate'
+        billing:
+          $ref: '#/components/schemas/Billing'
+        state:
+          $ref: '#/components/schemas/RelationshipState'
+      additionalProperties: false
+      required:
+        - from
+        - to
+        - role
+        - product
+    RelationshipProduct:
+      type: object
+      properties:
+        id:
+          type: string
+        role:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - role
+        - createdAt
+    Relationship:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        from:
+          type: string
+          format: uuid
+          description: person ID
+        to:
+          type: string
+          format: uuid
+          description: institution ID
+        filePath:
+          type: string
+          description: path of the file containing the signed onboarding document
+        fileName:
+          type: string
+          description: name of the file containing the signed onboarding document
+        contentType:
+          type: string
+          description: content type of the file containing the signed onboarding document
+        tokenId:
+          type: string
+          format: uuid
+          description: confirmation token identifier
+        role:
+          $ref: '#/components/schemas/PartyRole'
+        product:
+          $ref: '#/components/schemas/RelationshipProduct'
+        state:
+          $ref: '#/components/schemas/RelationshipState'
+        pricingPlan:
+          type: string
+          description: pricing plan
+        institutionUpdate:
+          $ref: '#/components/schemas/InstitutionUpdate'
+        billing:
+          $ref: '#/components/schemas/Billing'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+      required:
+        - id
+        - from
+        - to
+        - role
+        - product
+        - state
+        - createdAt
+    Institutions:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Institution'
+      additionalProperties: false
+      required:
+        - items
+    Relationships:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Relationship'
+      additionalProperties: false
+      required:
+        - items
+    RelationshipsSeed:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelationshipSeed'
+      additionalProperties: false
+      required:
+        - items
+    DigestSeed:
+      type: object
+      properties:
+        checksum:
+          type: string
+      additionalProperties: false
+      required:
+        - checksum
+    TokenSeed:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 97c0f418-bcb3-48d4-825a-fe8b29ae68e5
+        relationships:
+          $ref: '#/components/schemas/Relationships'
+        checksum:
+          type: string
+        contractInfo:
+          $ref: '#/components/schemas/OnboardingContractInfo'
+      additionalProperties: false
+      required:
+        - id
+        - relationships
+        - checksum
+        - contractInfo
+    RelationshipBinding:
+      type: object
+      properties:
+        partyId:
+          type: string
+          format: uuid
+          example: 97c0f418-bcb3-48d4-825a-fe8b29ae68e5
+        relationshipId:
+          type: string
+          format: uuid
+          example: 97c0f418-bcb3-48d4-825a-fe8b29ae68e5
+        role:
+          $ref: '#/components/schemas/PartyRole'
+      additionalProperties: false
+      required:
+        - partyId
+        - relationshipId
+        - role
+    OnboardingContractInfo:
+      type: object
+      properties:
+        version:
+          type: string
+          description: 'contains the version of the contract this onboarding belongs to'
+        path:
+          type: string
+          description: 'contains the path of the contract used for this onboarding'
+      additionalProperties: false
+      required:
+        - version
+        - path
+    OnboardingContract:
+      properties:
+        fileName:
+          type: string
+        filePath:
+          type: string
+      additionalProperties: false
+      required:
+        - fileName
+        - filePath
+    TokenInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 97c0f418-bcb3-48d4-825a-fe8b29ae68e5
+        checksum:
+          type: string
+        legals:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelationshipBinding'
+      additionalProperties: false
+      required:
+        - id
+        - checksum
+        - legals
+    TokenText:
+      properties:
+        token:
+          type: string
+      additionalProperties: false
+      required:
+        - token
+    Problem:
+      properties:
+        type:
+          description: URI reference of type definition
+          type: string
+        status:
+          description: The HTTP status code generated by the origin server for this occurrence of the problem.
+          example: 503
+          exclusiveMaximum: true
+          format: int32
+          maximum: 600
+          minimum: 100
+          type: integer
+        title:
+          description: A short, summary of the problem type. Written in english and readable
+          example: Service Unavailable
+          maxLength: 64
+          pattern: '^[ -~]{0,64}$'
+          type: string
+        detail:
+          description: A human readable explanation of the problem.
+          example: Request took too long to complete.
+          maxLength: 4096
+          pattern: '^.{0,1024}$'
+          type: string
+        errors:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ProblemError'
+      additionalProperties: false
+      required:
+        - type
+        - status
+        - title
+        - errors
+    ProblemError:
+      properties:
+        code:
+          description: Internal code of the error
+          example: 123-4567
+          minLength: 8
+          maxLength: 8
+          pattern: '^[0-9]{3}-[0-9]{4}$'
+          type: string
+        detail:
+          description: A human readable explanation specific to this occurrence of the problem.
+          example: Parameter not valid
+          maxLength: 4096
+          pattern: '^.{0,1024}$'
+          type: string
+      required:
+        - code
+        - detail
+    InstitutionUpdate:
+      type: object
+      required:
+        - geographicTaxonomies
+      properties:
+        institutionType:
+          type: string
+          example: PA
+          description: The type of the institution
+        description:
+          type: string
+          example: AGENCY X
+        digitalAddress:
+          example: email@pec.mail.org
+          format: email
+          type: string
+        address:
+          example: via del campo
+          type: string
+        zipCode:
+          example: 20100
+          type: string
+        taxCode:
+          description: institution tax code
+          type: string
+        paymentServiceProvider:
+          $ref: '#/components/schemas/PaymentServiceProvider'
+        dataProtectionOfficer:
+          $ref: '#/components/schemas/DataProtectionOfficer'
+        geographicTaxonomies:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeographicTaxonomy'
+        rea:
+          description: The institution REA
+          type: string
+        shareCapital:
+          type: string
+          description: The institution share capital value
+          example: 10000
+        businessRegisterPlace:
+          type: string
+          description: The business register place
+          example: Rome
+        supportEmail:
+          type: string
+          description: The support email contact
+        supportPhone:
+          type: string
+          description: The support phone contact
+        imported:
+          type: boolean
+          description: True if institution is stored from batch api
+    Billing:
+      type: object
+      properties:
+        vatNumber:
+          description: institution vat number
+          type: string
+        recipientCode:
+          description: institution recipient code
+          type: string
+        publicServices:
+          description: institution recipient code
+          type: boolean
+      required:
+        - vatNumber
+        - recipientCode
+      additionalProperties: false
+    InstitutionProduct:
+      type: object
+      properties:
+        product:
+          type: string
+        pricingPlan:
+          type: string
+          description: pricing plan
+        billing:
+          $ref: '#/components/schemas/Billing'
+      additionalProperties: false
+      required:
+        - product
+        - billing
+    PaymentServiceProvider:
+      type: object
+      additionalProperties: false
+      properties:
+        abiCode:
+          type: string
+          description: 'ABI Code'
+        businessRegisterNumber:
+          type: string
+          description: 'ID Registration Number on Business Register'
+        legalRegisterName:
+          type: string
+          description: 'Chairman name on Business Register'
+        legalRegisterNumber:
+          type: string
+          description: 'Chairman ID on Business Register'
+        vatNumberGroup:
+          type: boolean
+          description: 'true when vat number identify a group'
+    DataProtectionOfficer:
+      type: object
+      additionalProperties: false
+      properties:
+        address:
+          type: string
+          description: 'Data protection officer address'
+        email:
+          type: string
+          description: 'Data protection officer email'
+        pec:
+          type: string
+          description: 'Data protection officer digital address'
+    GeographicTaxonomy:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - desc
+      properties:
+        code:
+          type: string
+          description: 'Code of the geographic taxonomy'
+        desc:
+          type: string
+          description: 'Description of the geographic taxonomy code'
+    CollectionSearchMode:
+      type: string
+      enum:
+        - exact
+        - any
+        - all
+    NewDesignUser:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - bindings
+        - createdAt
+      properties:
+        id:
+          type: string
+        bindings:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewDesignUserInstitution'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NewDesignUserInstitution:
+      type: object
+      additionalProperties: false
+      required:
+        - institutionId
+        - products
+        - createdAt
+      properties:
+        institutionId:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewDesignUserInstitutionProduct'
+        createdAt:
+          type: string
+          format: date-time
+    NewDesignUserInstitutionProduct:
+      type: object
+      additionalProperties: false
+      required:
+        - productId
+        - status
+        - role
+        - productRoles
+        - env
+        - createdAt
+      properties:
+        productId:
+          type: string
+        tokenId:
+          type: string
+        contract:
+          type: string
+        role:
+          type: PartyRole
+        productRoles:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewDesignUserInstitutionProductRole'
+        env:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NewDesignUserInstitutionProductRole:
+      type: object
+      additionalProperties: false
+      required:
+        - relationshipId
+        - productRole
+        - status
+        - createdAt
+      properties:
+        relationshipId:
+          type: string
+        productRole:
+          type: string
+        status:
+          type: RelationshipState
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NewDesignInstitution:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - externalId
+        - origin
+        - originId
+        - description
+        - digitalAddress
+        - taxCode
+        - address
+        - zipCode
+        - attributes
+        - geographicTaxonomies
+        - onboarding
+        - createdAt
+      properties:
+        id:
+          type: string
+        externalId:
+          type: string
+        origin:
+          type: string
+        originId:
+          type: string
+        description:
+          type: string
+        institutionType:
+          type: string
+        digitalAddress:
+          type: string
+        address:
+          type: string
+        zipCode:
+          type: string
+        taxCode:
+          type: string
+# cannot handle more than 22 fields!
+#        billing:
+#          $ref: '#/components/schemas/Billing'
+        geographicTaxonomies:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeographicTaxonomy'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        paymentServiceProvider:
+          $ref: '#/components/schemas/PaymentServiceProvider'
+        dataProtectionOfficer:
+          $ref: '#/components/schemas/DataProtectionOfficer'
+        rea:
+          type: string
+        shareCapital:
+          type: string
+        businessRegisterPlace:
+          type: string
+        supportEmail:
+          type: string
+        supportPhone:
+          type: string
+        imported:
+          type: boolean
+        onboarding:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewDesignInstitutionOnboarding'
+        createdAt:
+          type: string
+          format: date-time
+# cannot handle more than 22 fields!
+#        updatedAt:
+#          type: string
+#          format: date-time
+    NewDesignInstitutionOnboarding:
+      type: object
+      additionalProperties: false
+      required:
+        - productId
+        - status
+        - billing
+        - subProducts
+        - createdAt
+      properties:
+        productId:
+          type: string
+        status:
+          type: RelationshipState
+        tokenId:
+          type: string
+        contract:
+          type: string
+        pricingPlan:
+          type: string
+        billing:
+          $ref: '#/components/schemas/Billing'
+        subProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewDesignInstitutionOnboardingSubProduct'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NewDesignInstitutionOnboardingSubProduct:
+      type: object
+      additionalProperties: false
+      required:
+        - parentId
+        - productId
+        - status
+        - billing
+        - createdAt
+      properties:
+        parentId:
+          type: string
+        productId:
+          type: string
+        status:
+          type: RelationshipState
+        tokenId:
+          type: string
+        contract:
+          type: string
+        pricingPlan:
+          type: string
+        billing:
+          $ref: '#/components/schemas/Billing'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NewDesignToken:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - status
+        - institutionId
+        - productId
+        - expiringDate
+        - checksum
+        - contractTemplate
+        - contractVersion
+        - users
+        - createdAt
+      properties:
+        id:
+          type: string
+        status:
+          type: RelationshipState
+        institutionId:
+          type: string
+        productId:
+          type: string
+        expiringDate:
+          type: string
+          format: date-time
+        checksum:
+          type: string
+        contractTemplate:
+          type: string
+        contractVersion:
+          type: string
+        contractSigned:
+          type: string
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewDesignTokenUser'
+        institutionUpdate:
+          $ref: '#/components/schemas/InstitutionUpdate'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NewDesignTokenUser:
+      type: object
+      additionalProperties: false
+      required:
+        - userId
+        - relationshipId
+        - role
+      properties:
+        userId:
+          type: string
+        relationshipId:
+          type: string
+        role:
+          type: PartyRole
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'A bearer token in the format of a JWS and comformed to the specifications included in [RFC8725](https://tools.ietf.org/html/RFC8725).'
+      scheme: bearer
+      bearerFormat: JWT
