@@ -36,7 +36,7 @@
                         </goals>
                         <phase>process-resources</phase>
                         <configuration>
-                            <inputSpec>../docs/party-specification.yml</inputSpec>
+                            <inputSpec>${maven.multiModuleProjectDirectory}/docs/party-specification.yml</inputSpec>
                             <generatorName>java</generatorName>
                             <library>feign</library>
                             <generateApiDocumentation>false</generateApiDocumentation>

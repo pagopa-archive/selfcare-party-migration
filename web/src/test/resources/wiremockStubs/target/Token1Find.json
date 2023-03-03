@@ -48,12 +48,10 @@
       "status": "ACTIVE",
       "users": [
         {
-          "relationshipId": "RELATIONSHIPID__1",
           "role": "MANAGER",
           "userId": "USERID"
         },
         {
-          "relationshipId": "RELATIONSHIPID2__1",
           "role": "DELEGATE",
           "userId": "USERID2"
         }

@@ -57,12 +57,10 @@
         "status": "ACTIVE",
         "users": [
           {
-            "relationshipId": "RELATIONSHIPID__2",
             "role": "MANAGER",
             "userId": "USERID"
           },
           {
-            "relationshipId": "RELATIONSHIPID2__2",
             "role": "DELEGATE",
             "userId": "USERID2"
           }
@@ -106,12 +104,10 @@
         "status": "ACTIVE",
         "users": [
           {
-            "relationshipId": "RELATIONSHIPID__3",
             "role": "MANAGER",
             "userId": "USERID"
           },
           {
-            "relationshipId": "RELATIONSHIPID2__3",
             "role": "DELEGATE",
             "userId": "USERID2"
           }

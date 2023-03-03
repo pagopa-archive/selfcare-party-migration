@@ -48,21 +48,6 @@
           "productId": "PRODUCTID",
           "pricingPlan": "PRODUCT_pricinPlan__1",
           "status": "ACTIVE",
-          "subProducts": [
-            {
-              "billing": {
-                "recipientCode": "SUBPRODUCT_BILLING_recipientCode__1",
-                "vatNumber": "SUBPRODUCT_BILLING_vatNumber__1"
-              },
-              "createdAt": "2023-01-01T00:02:00.00Z",
-              "parentId": "PRODUCTID",
-              "productId": "SUBPRODUCTID",
-              "pricingPlan": "SUBPRODUCT_pricinPlan__1",
-              "status": "PENDING",
-              "tokenId": "SUBPRODUCT_TOKENID__1",
-              "updatedAt": "2023-01-01T01:02:01.001Z"
-            }
-          ],
           "tokenId": "PRODUCT_TOKENID__1",
           "updatedAt": "2023-01-01T01:01:01.001Z"
         }

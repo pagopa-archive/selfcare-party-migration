@@ -46,21 +46,6 @@
             "productId": "PRODUCTID",
             "pricingPlan": "PRODUCT_pricinPlan__0",
             "status": "ACTIVE",
-            "subProducts": [
-              {
-                "billing": {
-                  "recipientCode": "SUBPRODUCT_BILLING_recipientCode__0",
-                  "vatNumber": "SUBPRODUCT_BILLING_vatNumber__0"
-                },
-                "createdAt": "2023-01-01T00:02:00.00Z",
-                "parentId": "PRODUCTID",
-                "productId": "SUBPRODUCTID",
-                "pricingPlan": "SUBPRODUCT_pricinPlan__0",
-                "status": "PENDING",
-                "tokenId": "SUBPRODUCT_TOKENID__0",
-                "updatedAt": "2023-01-01T00:02:01.001Z"
-              }
-            ],
             "tokenId": "PRODUCT_TOKENID__0",
             "updatedAt": "2023-01-01T00:01:01.001Z"
           }
@@ -124,21 +109,6 @@
             "productId": "PRODUCTID",
             "pricingPlan": "PRODUCT_pricinPlan__0",
             "status": "ACTIVE",
-            "subProducts": [
-              {
-                "billing": {
-                  "recipientCode": "SUBPRODUCT_BILLING_recipientCode__0",
-                  "vatNumber": "SUBPRODUCT_BILLING_vatNumber__0"
-                },
-                "createdAt": "2023-01-01T00:02:00.00Z",
-                "parentId": "PRODUCTID",
-                "productId": "SUBPRODUCTID",
-                "pricingPlan": "SUBPRODUCT_pricinPlan__0",
-                "status": "PENDING",
-                "tokenId": "SUBPRODUCT_TOKENID__0",
-                "updatedAt": "2023-01-01T00:02:01.001Z"
-              }
-            ],
             "tokenId": "PRODUCT_TOKENID__0",
             "updatedAt": "2023-01-01T00:01:01.001Z"
           }

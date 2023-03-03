@@ -105,7 +105,7 @@ class SwaggerConfig {
                         .version(environment.getProperty("swagger.version", Objects.requireNonNull(environment.getProperty("spring.application.version"))))
                         .build())
                 .select().apis(RequestHandlerSelectors.basePackage("it.pagopa.selfcare.party.migration.web.controller")).build()
-                .tags(new Tag("selfcare-party-migration", environment.getProperty("swagger.name.api.description")))
+                .tags(new Tag("migration", environment.getProperty("swagger.name.api.description")))
                 .directModelSubstitute(LocalTime.class, String.class)
                 .forCodeGeneration(true)
                 .useDefaultResponseMessages(false)

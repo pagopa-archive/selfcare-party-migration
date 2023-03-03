@@ -26,40 +26,32 @@
             "institutionId": "INSTITUTIONID",
             "products": [
               {
-                "createdAt": "2023-01-01T00:01:00.000Z",
                 "env": "ROOT",
                 "productId": "PRODUCTID",
-                "productRoles": [
-                  {
-                    "createdAt": "2023-01-01T00:01:00.000Z",
-                    "productRole": "referente operativo",
-                    "relationshipId": "RELATIONSHIPID__0",
-                    "status": "ACTIVE",
-                    "updatedAt": "2023-01-01T00:02:00.000Z"
-                  }
-                ],
+                "productRole": "referente operativo",
+                "relationshipId": "RELATIONSHIPID__0",
+                "status": "ACTIVE",
                 "role": "OPERATOR",
+                "createdAt": "2023-01-01T00:01:00.000Z",
                 "updatedAt": "2023-01-01T00:02:00.000Z"
               },
               {
-                "createdAt": "2023-01-01T00:03:00.000Z",
                 "env": "ROOT",
                 "productId": "PRODUCTID2",
-                "productRoles": [
-                  {
-                    "createdAt": "2023-01-01T00:03:00.000Z",
-                    "productRole": "referente operativo 3",
-                    "relationshipId": "RELATIONSHIPID2__0",
-                    "status": "ACTIVE"
-                  },
-                  {
-                    "createdAt": "2023-01-01T00:04:00.000Z",
-                    "productRole": "referente operativo",
-                    "relationshipId": "RELATIONSHIPID3__0",
-                    "status": "ACTIVE"
-                  }
-                ],
-                "role": "OPERATOR"
+                "relationshipId": "RELATIONSHIPID2__0",
+                "role": "OPERATOR",
+                "productRole": "referente operativo 3",
+                "status": "ACTIVE",
+                "createdAt": "2023-01-01T00:03:00.000Z"
+              },
+              {
+                "env": "ROOT",
+                "relationshipId": "RELATIONSHIPID3__0",
+                "productId": "PRODUCTID2",
+                "role": "OPERATOR",
+                "productRole": "referente operativo",
+                "status": "ACTIVE",
+                "createdAt": "2023-01-01T00:04:00.000Z"
               }
             ]
           }
