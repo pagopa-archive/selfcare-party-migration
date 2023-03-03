@@ -1,0 +1,75 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/target/institution/INSTITUTIONID__1",
+    "headers": {
+      "Authorization": {
+        "matches": "Bearer AUTHTOKEN"
+      }
+    }
+  },
+  "response": {
+    "status": "200",
+    "jsonBody": {
+      "address": "address__1",
+      "attributes": [
+        {
+          "code": "ATTRIBUTE__1_code0",
+          "description": "ATTRIBUTE__1_description0",
+          "origin": "ATTRIBUTE__1_origin0"
+        }
+      ],
+      "businessRegisterPlace": "businessRegisterPlace__1",
+      "createdAt": "2023-01-01T01:00:00Z",
+      "dataProtectionOfficer": {
+        "address": "dataProtectionOfficer__1_address",
+        "email": "dataProtectionOfficer__1_email",
+        "pec": "dataProtectionOfficer__1_pec"
+      },
+      "description": "description__1",
+      "digitalAddress": "digitalAddress__1",
+      "externalId": "externalId__1",
+      "geographicTaxonomies": [
+        {
+          "code": "geocode__1",
+          "desc": "geodesc__1"
+        }
+      ],
+      "id": "INSTITUTIONID__1",
+      "institutionType": "PA",
+      "onboarding": [
+        {
+          "billing": {
+            "recipientCode": "PRODUCT_BILLING_recipientCode__1",
+            "vatNumber": "PRODUCT_BILLING_vatNumber__1"
+          },
+          "contract": "PRODUCT_contract__1",
+          "createdAt": "2023-01-01T01:01:00.00Z",
+          "productId": "PRODUCTID",
+          "pricingPlan": "PRODUCT_pricinPlan__1",
+          "status": "ACTIVE",
+          "tokenId": "PRODUCT_TOKENID__1",
+          "updatedAt": "2023-01-01T01:01:01.001Z"
+        }
+      ],
+      "origin": "SELC__1",
+      "originId": "originId__1",
+      "paymentServiceProvider": {
+        "abiCode": "paymentServiceProvider_abiCode__1",
+        "businessRegisterNumber": "paymentServiceProvider_businessRegisterNumber__1",
+        "legalRegisterName": "paymentServiceProvider_legalRegisterName__1",
+        "legalRegisterNumber": "paymentServiceProvider_legalRegisterNumber__1",
+        "vatNumberGroup": true
+      },
+      "rea": "rea__1",
+      "shareCapital": "shareCapital__1",
+      "supportEmail": "supportEmail__1",
+      "supportPhone": "supportPhone__1",
+      "taxCode": "taxCode__1",
+      "zipCode": "zipCode__1"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

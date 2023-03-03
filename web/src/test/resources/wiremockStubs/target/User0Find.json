@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/target/user/USERID__0",
+    "headers": {
+      "Authorization": {
+        "matches": "Bearer AUTHTOKEN"
+      }
+    }
+  },
+  "response": {
+    "status": "200",
+    "jsonBody": {
+      "bindings": [
+        {
+          "createdAt": "2023-01-01T00:00:00.000Z",
+          "institutionId": "INSTITUTIONID",
+          "products": [
+            {
+              "env": "ROOT",
+              "productId": "PRODUCTID",
+              "productRole": "referente operativo",
+              "relationshipId": "RELATIONSHIPID__0",
+              "status": "ACTIVE",
+              "role": "OPERATOR",
+              "createdAt": "2023-01-01T00:01:00.000Z",
+              "updatedAt": "2023-01-01T00:02:00.000Z"
+            },
+            {
+              "env": "ROOT",
+              "productId": "PRODUCTID2",
+              "relationshipId": "RELATIONSHIPID2__0",
+              "role": "OPERATOR",
+              "productRole": "referente operativo 3",
+              "status": "ACTIVE",
+              "createdAt": "2023-01-01T00:03:00.000Z"
+            },
+            {
+              "env": "ROOT",
+              "relationshipId": "RELATIONSHIPID3__0",
+              "productId": "PRODUCTID2",
+              "role": "OPERATOR",
+              "productRole": "referente operativo",
+              "status": "ACTIVE",
+              "createdAt": "2023-01-01T00:04:00.000Z"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2023-01-01T00:01:00.000Z",
+      "id": "USERID__0",
+      "updatedAt": "2023-01-01T00:04:00.000Z"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

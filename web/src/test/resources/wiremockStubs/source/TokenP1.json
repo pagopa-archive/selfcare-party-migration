@@ -1,0 +1,121 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/source/tokens",
+    "headers": {
+      "Authorization": {
+        "matches": "Bearer AUTHTOKEN"
+      }
+    },
+    "queryParameters": {
+      "page": {
+        "equalTo": "1"
+      },
+      "size": {
+        "equalTo": "2"
+      }
+    }
+  },
+  "response": {
+    "status": "200",
+    "jsonBody": [
+      {
+        "checksum": "checksum__2",
+        "contractTemplate": "contractTemplate__2",
+        "contractVersion": "contractVersion__2",
+        "createdAt": "2023-01-01T00:00:00.000Z",
+        "expiringDate": "2023-01-11T00:00:00.000Z",
+        "id": "TOKENID__2",
+        "institutionId": "INSTITUTIONID",
+        "institutionUpdate": {
+          "address": "INSTITUTION_address__2",
+          "dataProtectionOfficer": {
+            "address": "INSTITUTION_dataProtectionOfficer_address__2",
+            "email": "INSTITUTION_dataProtectionOfficer_email__2",
+            "pec": "INSTITUTION_dataProtectionOfficer_pec__2"
+          },
+          "description": "INSTITUTION_description__2",
+          "digitalAddress": "INSTITUTION_digitalAddress__2",
+          "geographicTaxonomies": [
+            {
+              "code": "geocode__2",
+              "desc": "geodesc__2"
+            }
+          ],
+          "institutionType": "PSP",
+          "paymentServiceProvider": {
+            "abiCode": "INSTITUTION_paymentServiceProvider_abiCode__2",
+            "businessRegisterNumber": "INSTITUTION_paymentServiceProvider_businessRegisterNumber__2",
+            "legalRegisterName": "INSTITUTION_paymentServiceProvider_legalRegisterName__2",
+            "legalRegisterNumber": "INSTITUTION_paymentServiceProvider_legalRegisterNumber__2",
+            "vatNumberGroup": false
+          },
+          "taxCode": "INSTITUTION_geographicTaxonomies__2",
+          "zipCode": "INSTITUTION_taxCode__28"
+        },
+        "productId": "PRODUCTID",
+        "status": "ACTIVE",
+        "users": [
+          {
+            "role": "MANAGER",
+            "userId": "USERID"
+          },
+          {
+            "role": "DELEGATE",
+            "userId": "USERID2"
+          }
+        ]
+      },
+      {
+        "checksum": "checksum__3",
+        "contractTemplate": "contractTemplate__3",
+        "contractVersion": "contractVersion__3",
+        "createdAt": "2023-01-01T00:00:00.000Z",
+        "expiringDate": "2023-01-11T00:00:00.000Z",
+        "id": "TOKENID__3",
+        "institutionId": "INSTITUTIONID",
+        "institutionUpdate": {
+          "address": "INSTITUTION_address__3",
+          "dataProtectionOfficer": {
+            "address": "INSTITUTION_dataProtectionOfficer_address__3",
+            "email": "INSTITUTION_dataProtectionOfficer_email__3",
+            "pec": "INSTITUTION_dataProtectionOfficer_pec__3"
+          },
+          "description": "INSTITUTION_description__3",
+          "digitalAddress": "INSTITUTION_digitalAddress__3",
+          "geographicTaxonomies": [
+            {
+              "code": "geocode__3",
+              "desc": "geodesc__3"
+            }
+          ],
+          "institutionType": "PSP",
+          "paymentServiceProvider": {
+            "abiCode": "INSTITUTION_paymentServiceProvider_abiCode__3",
+            "businessRegisterNumber": "INSTITUTION_paymentServiceProvider_businessRegisterNumber__3",
+            "legalRegisterName": "INSTITUTION_paymentServiceProvider_legalRegisterName__3",
+            "legalRegisterNumber": "INSTITUTION_paymentServiceProvider_legalRegisterNumber__3",
+            "vatNumberGroup": false
+          },
+          "taxCode": "INSTITUTION_geographicTaxonomies__3",
+          "zipCode": "INSTITUTION_taxCode__38"
+        },
+        "productId": "PRODUCTID",
+        "status": "ACTIVE",
+        "users": [
+          {
+            "role": "MANAGER",
+            "userId": "USERID"
+          },
+          {
+            "role": "DELEGATE",
+            "userId": "USERID2"
+          }
+        ]
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPathPattern": "/target/token",
+    "headers": {
+      "Authorization": {
+        "matches": "Bearer AUTHTOKEN"
+      }
+    },
+    "bodyPatterns" : [ {
+      "equalToJson" :  {
+        "checksum": "checksum__1",
+        "contractTemplate": "contractTemplate__1",
+        "contractVersion": "contractVersion__1",
+        "createdAt": "2023-01-01T00:00:00.000Z",
+        "expiringDate": "2023-01-11T00:00:00.000Z",
+        "id": "TOKENID__1",
+        "institutionId": "INSTITUTIONID",
+        "institutionUpdate": {
+          "address": "INSTITUTION_address__1",
+          "dataProtectionOfficer": {
+            "address": "INSTITUTION_dataProtectionOfficer_address__1",
+            "email": "INSTITUTION_dataProtectionOfficer_email__1",
+            "pec": "INSTITUTION_dataProtectionOfficer_pec__1"
+          },
+          "description": "INSTITUTION_description__1",
+          "digitalAddress": "INSTITUTION_digitalAddress__1",
+          "geographicTaxonomies": [
+            {
+              "code": "geocode__1",
+              "desc": "geodesc__1"
+            }
+          ],
+          "institutionType": "PSP",
+          "paymentServiceProvider": {
+            "abiCode": "INSTITUTION_paymentServiceProvider_abiCode__1",
+            "businessRegisterNumber": "INSTITUTION_paymentServiceProvider_businessRegisterNumber__1",
+            "legalRegisterName": "INSTITUTION_paymentServiceProvider_legalRegisterName__1",
+            "legalRegisterNumber": "INSTITUTION_paymentServiceProvider_legalRegisterNumber__1",
+            "vatNumberGroup": false
+          },
+          "taxCode": "INSTITUTION_geographicTaxonomies__1",
+          "zipCode": "INSTITUTION_taxCode__18"
+        },
+        "productId": "PRODUCTID",
+        "status": "ACTIVE",
+        "users": [
+          {
+            "role": "MANAGER",
+            "userId": "USERID"
+          },
+          {
+            "role": "DELEGATE",
+            "userId": "USERID2"
+          }
+        ]
+      },
+      "ignoreArrayOrder" : true
+    } ]
+  },
+  "response": {
+    "status": "200",
+    "jsonBody": {
+      "checksum": "checksum__1",
+      "contractTemplate": "contractTemplate__1",
+      "contractVersion": "contractVersion__1",
+      "createdAt": "2023-01-01T00:00:00.000Z",
+      "expiringDate": "2023-01-11T00:00:00.000Z",
+      "id": "TOKENID__1",
+      "institutionId": "INSTITUTIONID",
+      "institutionUpdate": {
+        "address": "INSTITUTION_address__1",
+        "dataProtectionOfficer": {
+          "address": "INSTITUTION_dataProtectionOfficer_address__1",
+          "email": "INSTITUTION_dataProtectionOfficer_email__1",
+          "pec": "INSTITUTION_dataProtectionOfficer_pec__1"
+        },
+        "description": "INSTITUTION_description__1",
+        "digitalAddress": "INSTITUTION_digitalAddress__1",
+        "geographicTaxonomies": [
+          {
+            "code": "geocode__1",
+            "desc": "geodesc__1"
+          }
+        ],
+        "institutionType": "PSP",
+        "paymentServiceProvider": {
+          "abiCode": "INSTITUTION_paymentServiceProvider_abiCode__1",
+          "businessRegisterNumber": "INSTITUTION_paymentServiceProvider_businessRegisterNumber__1",
+          "legalRegisterName": "INSTITUTION_paymentServiceProvider_legalRegisterName__1",
+          "legalRegisterNumber": "INSTITUTION_paymentServiceProvider_legalRegisterNumber__1",
+          "vatNumberGroup": false
+        },
+        "taxCode": "INSTITUTION_geographicTaxonomies__1",
+        "zipCode": "INSTITUTION_taxCode__18"
+      },
+      "productId": "PRODUCTID",
+      "status": "ACTIVE",
+      "users": [
+        {
+          "role": "MANAGER",
+          "userId": "USERID"
+        },
+        {
+          "role": "DELEGATE",
+          "userId": "USERID2"
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

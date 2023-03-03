@@ -1,0 +1,1 @@
+./mvnw package -DskipTests && ./run.sh
