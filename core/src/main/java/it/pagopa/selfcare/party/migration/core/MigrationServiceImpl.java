@@ -5,6 +5,7 @@ import it.pagopa.selfcare.party.migration.connector.TargetDataConnectorService;
 import it.pagopa.selfcare.party.migration.connector.generated.NewDesignInstitution;
 import it.pagopa.selfcare.party.migration.connector.generated.NewDesignToken;
 import it.pagopa.selfcare.party.migration.connector.generated.NewDesignUser;
+import it.pagopa.selfcare.party.migration.core.model.MigrationReport;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContext;
@@ -50,7 +51,7 @@ class MigrationServiceImpl implements MigrationService {
     }
 
     @Override
-    public boolean migrateUsers() {
+    public MigrationReport migrateUsers() {
         return migrate(
                 "USERS",
                 NewDesignUser::getId,
@@ -61,7 +62,7 @@ class MigrationServiceImpl implements MigrationService {
     }
 
     @Override
-    public boolean migrateInstitutions() {
+    public MigrationReport migrateInstitutions() {
         return migrate(
                 "INSTITUTIONS",
                 NewDesignInstitution::getId,
@@ -72,7 +73,7 @@ class MigrationServiceImpl implements MigrationService {
     }
 
     @Override
-    public boolean migrateTokens() {
+    public MigrationReport migrateTokens() {
         return migrate(
                 "TOKENS",
                 NewDesignToken::getId,
@@ -83,7 +84,7 @@ class MigrationServiceImpl implements MigrationService {
     }
 
     @SuppressWarnings({"squid:S2142","squid:S3776"})
-    private <T> boolean migrate(
+    private <T> MigrationReport migrate(
             String flowName,
             Function<T, String> idGetter,
             BiFunction<Integer, Integer, List<T>> sourceRetriever,
@@ -139,14 +140,14 @@ class MigrationServiceImpl implements MigrationService {
 
         forkJoinPool.shutdown();
 
-        log.info("Migration of {} completed in {} ms: fetched {}, processed {}, successful stored {}",
+        MigrationReport report = new MigrationReport(fetched, processed.get(), successfulMigrated.get(), result.get());
+
+        log.info("Migration of {} completed in {} ms: {}",
                 flowName,
                 System.currentTimeMillis() - startTime,
-                fetched,
-                processed.get(),
-                successfulMigrated.get());
+                report);
 
-        return result.get();
+        return report;
     }
 
     private <T> boolean storeAndCheck(

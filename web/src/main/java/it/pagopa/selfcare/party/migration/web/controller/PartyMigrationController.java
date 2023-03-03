@@ -2,6 +2,7 @@ package it.pagopa.selfcare.party.migration.web.controller;
 
 import io.swagger.annotations.Api;
 import it.pagopa.selfcare.party.migration.core.MigrationService;
+import it.pagopa.selfcare.party.migration.core.model.MigrationReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,18 +20,18 @@ public class PartyMigrationController {
     }
 
     @GetMapping("/users")
-    public String migrateUsers(){
-        return migrationService.migrateUsers()? "OK" : "KO";
+    public MigrationReport migrateUsers(){
+        return migrationService.migrateUsers();
     }
 
     @GetMapping("/institutions")
-    public String migrateInstitutions(){
-        return migrationService.migrateInstitutions()? "OK" : "KO";
+    public MigrationReport migrateInstitutions(){
+        return migrationService.migrateInstitutions();
     }
 
     @GetMapping("/tokens")
-    public String migrateTokens(){
-        return migrationService.migrateTokens()? "OK" : "KO";
+    public MigrationReport migrateTokens(){
+        return migrationService.migrateTokens();
     }
 
 }

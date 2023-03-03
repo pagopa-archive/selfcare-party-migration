@@ -85,7 +85,7 @@ class PartyMigrationControllerIntegrationTest {
                         .header("Authorization", "Bearer AUTHTOKEN")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
-                .andExpect(MockMvcResultMatchers.content().string("OK"));
+                .andExpect(MockMvcResultMatchers.content().string("{\"fetched\":2,\"processed\":2,\"successfulMigrated\":2,\"success\":true}"));
 
         Mockito.verify(sourceRestClientSpy)
                 .findInstitutions(0,2);
@@ -111,7 +111,7 @@ class PartyMigrationControllerIntegrationTest {
                         .header("Authorization", "Bearer AUTHTOKEN")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
-                .andExpect(MockMvcResultMatchers.content().string("OK"));
+                .andExpect(MockMvcResultMatchers.content().string("{\"fetched\":1,\"processed\":1,\"successfulMigrated\":1,\"success\":true}"));
 
         Mockito.verify(sourceRestClientSpy)
                 .findUsers(0,2);
@@ -133,7 +133,7 @@ class PartyMigrationControllerIntegrationTest {
                         .header("Authorization", "Bearer AUTHTOKEN")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
-                .andExpect(MockMvcResultMatchers.content().string("OK"));
+                .andExpect(MockMvcResultMatchers.content().string("{\"fetched\":4,\"processed\":4,\"successfulMigrated\":3,\"success\":false}"));
 
         Mockito.verify(sourceRestClientSpy)
                 .findTokens(0,2);
@@ -143,6 +143,7 @@ class PartyMigrationControllerIntegrationTest {
         verifyTokenOnTarget("TOKENID__0");
         verifyTokenOnTarget("TOKENID__1");
         verifyTokenOnTarget("TOKENID__2");
+        verifyTokenOnTarget("TOKENID__3");
     }
 
     private void verifyTokenOnTarget(String tokenId) {
