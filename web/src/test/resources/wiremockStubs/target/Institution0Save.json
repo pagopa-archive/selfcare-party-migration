@@ -18,7 +18,7 @@
           }
         ],
         "businessRegisterPlace": "businessRegisterPlace__0",
-        "createdAt": "2023-01-01T00:00:00Z",
+        "createdAt": "2023-01-01T00:00:00.000+00:00",
         "dataProtectionOfficer": {
           "address": "dataProtectionOfficer__0_address",
           "email": "dataProtectionOfficer__0_email",
@@ -42,12 +42,12 @@
               "vatNumber": "PRODUCT_BILLING_vatNumber__0"
             },
             "contract": "PRODUCT_contract__0",
-            "createdAt": "2023-01-01T00:01:00.00Z",
+            "createdAt": "2023-01-01T00:01:00.000+00:00",
             "productId": "PRODUCTID",
             "pricingPlan": "PRODUCT_pricinPlan__0",
             "status": "ACTIVE",
             "tokenId": "PRODUCT_TOKENID__0",
-            "updatedAt": "2023-01-01T00:01:01.001Z"
+            "updatedAt": "2023-01-01T00:01:01.001+00:00"
           }
         ],
         "origin": "SELC__0",
@@ -81,7 +81,7 @@
           }
         ],
         "businessRegisterPlace": "businessRegisterPlace__0",
-        "createdAt": "2023-01-01T00:00:00Z",
+        "createdAt": "2023-01-01T00:00:00.000+00:00",
         "dataProtectionOfficer": {
           "address": "dataProtectionOfficer__0_address",
           "email": "dataProtectionOfficer__0_email",
@@ -105,12 +105,12 @@
               "vatNumber": "PRODUCT_BILLING_vatNumber__0"
             },
             "contract": "PRODUCT_contract__0",
-            "createdAt": "2023-01-01T00:01:00.00Z",
+            "createdAt": "2023-01-01T00:01:00.000+00:00",
             "productId": "PRODUCTID",
             "pricingPlan": "PRODUCT_pricinPlan__0",
             "status": "ACTIVE",
             "tokenId": "PRODUCT_TOKENID__0",
-            "updatedAt": "2023-01-01T00:01:01.001Z"
+            "updatedAt": "2023-01-01T00:01:01.001+00:00"
           }
         ],
         "origin": "SELC__0",

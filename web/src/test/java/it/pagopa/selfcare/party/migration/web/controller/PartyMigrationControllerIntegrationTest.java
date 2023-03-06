@@ -27,6 +27,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @SpringBootTest(
         classes = {
                 PartyMigrationControllerIntegrationTest.TestConfig.class
@@ -50,6 +53,10 @@ class PartyMigrationControllerIntegrationTest {
     @PropertySource(value = "file:../app/src/main/resources/config/application.yml", factory = YamlPropertySourceFactory.class)
     @ComponentScan("it.pagopa.selfcare.party.migration")
     public static class TestConfig {
+        @PostConstruct
+        void init(){
+            TimeZone.setDefault(TimeZone.getTimeZone("Z"));
+        }
     }
 
     @Autowired
@@ -65,12 +72,12 @@ class PartyMigrationControllerIntegrationTest {
 
     @BeforeEach
     void mockAuth(){
-        JwtAuthenticationStrategy authStratetegyMock = Mockito.mock(JwtAuthenticationStrategy.class);
-        Mockito.when(authStratetegyMock.authenticate(Mockito.any()))
+        JwtAuthenticationStrategy authStrategyMock = Mockito.mock(JwtAuthenticationStrategy.class);
+        Mockito.when(authStrategyMock.authenticate(Mockito.any()))
                         .thenAnswer(i -> new JwtAuthenticationToken(i.getArgument(0, JwtAuthenticationToken.class).getCredentials()));
 
         Mockito.when(authMock.create(Mockito.any()))
-                .thenReturn(authStratetegyMock);
+                .thenReturn(authStrategyMock);
     }
 
     @AfterEach

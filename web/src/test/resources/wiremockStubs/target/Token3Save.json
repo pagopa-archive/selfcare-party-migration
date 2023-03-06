@@ -12,8 +12,8 @@
         "checksum": "checksum__3",
         "contractTemplate": "contractTemplate__3",
         "contractVersion": "contractVersion__3",
-        "createdAt": "2023-01-01T00:00:00.000Z",
-        "expiringDate": "2023-01-11T00:00:00.000Z",
+        "createdAt": "2023-01-01T00:00:00.000+00:00",
+        "expiringDate": "2023-01-11T00:00:00.000+00:00",
         "id": "TOKENID__3",
         "institutionId": "INSTITUTIONID",
         "institutionUpdate": {
@@ -64,8 +64,8 @@
       "checksum": "checksum__3",
       "contractTemplate": "contractTemplate__3",
       "contractVersion": "contractVersion__3",
-      "createdAt": "2023-01-01T00:00:00.000Z",
-      "expiringDate": "2023-01-11T00:00:00.000Z",
+      "createdAt": "2023-01-01T00:00:00.000+00:00",
+      "expiringDate": "2023-01-11T00:00:00.000+00:00",
       "id": "TOKENID__3",
       "institutionId": "INSTITUTIONID",
       "institutionUpdate": {

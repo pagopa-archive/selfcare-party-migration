@@ -50,10 +50,11 @@
                                 <modelPackage>it.pagopa.selfcare.party.migration.connector.generated</modelPackage>
                                 <dateLibrary>custom</dateLibrary>
                             </configOptions>
+                            <!-- adjust timestamps
                             <typeMappings>
                                 <typeMapping>DateTime=String</typeMapping>
                                 <typeMapping>Date=String</typeMapping>
-                            </typeMappings>
+                            </typeMappings>-->
                         </configuration>
                     </execution>
                 </executions>
