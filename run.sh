@@ -1,3 +1,4 @@
+export APP_LOG_LEVEL=INFO
 # party-management pod ip
 export SOURCE_HOST=localhost
 export SOURCE_PORT=8088

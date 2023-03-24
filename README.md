@@ -94,4 +94,12 @@ If starting the application you see the following exception:
 ```
 com.microsoft.aad.adal4j.AdalClaimsChallengeException: {"error":"interaction_required"}
 ```
-You have to authenticate your kubectl client, or remove the used config file. 
+You have to authenticate your kubectl client, or remove the used config file.
+
+## Useful scripts
+Inside the repository there are some useful scripts which make easy compile and execute the migration application server in the local computer.:
+
+| SCRIPT           | Description                                                                                                                                                                                                  |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| packageAndRun.sh | It will create the fat jar and then will call the run.sh script                                                                                                                                              |
+| run.sh           | It will suggest some useful variables to set and then launch the application. Before to execute it, you have to open it and configure the right values for SOURCE_HOST, TARGET_HOST and JWT_TOKEN_PUBLIC_KEY |
