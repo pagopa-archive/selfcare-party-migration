@@ -83,3 +83,15 @@ The following environment variables allow to configure integrations toward the t
 | TARGET_PATH_USERS                  | The path, concatenated to the base url, to invoke the API to store and fetch by id the User documents        | /user                           |
 | TARGET_REST_CLIENT_CONNECT_TIMEOUT | The connect milliseconds timeout applied to Target's API                                                     | 5000                            |
 | TARGET_REST_CLIENT_READ_TIMEOUT    | The read milliseconds timeout applied to Target's API                                                        | 5000                            |
+
+## Throubleshouting
+
+Due to the use of selfcare-commons security config, it will configure the authentication through k8s. 
+If you defined the KUBECONFIG env var, or the default kubectl config file exists, you will be asked to allow the authentication.
+If the config file doesn't exists, it will ignore it and the application will be able to start successfully.
+
+If starting the application you see the following exception:
+```
+com.microsoft.aad.adal4j.AdalClaimsChallengeException: {"error":"interaction_required"}
+```
+You have to authenticate your kubectl client, or remove the used config file. 
