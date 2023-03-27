@@ -2003,9 +2003,9 @@ components:
           type: string
         taxCode:
           type: string
-        # cannot handle more than 22 fields!
-        #        billing:
-        #          $ref: '#/components/schemas/Billing'
+# cannot handle more than 22 fields!
+#        billing:
+#          $ref: '#/components/schemas/Billing'
         geographicTaxonomies:
           type: array
           items:
@@ -2037,10 +2037,10 @@ components:
         createdAt:
           type: string
           format: date-time
-    # cannot handle more than 22 fields!
-    #        updatedAt:
-    #          type: string
-    #          format: date-time
+# cannot handle more than 22 fields!
+#        updatedAt:
+#          type: string
+#          format: date-time
     NewDesignInstitutionOnboarding:
       type: object
       additionalProperties: false
@@ -2073,6 +2073,7 @@ components:
       additionalProperties: false
       required:
         - id
+        - type
         - status
         - institutionId
         - productId
@@ -2084,6 +2085,8 @@ components:
         - createdAt
       properties:
         id:
+          type: string
+        type:
           type: string
         status:
           type: RelationshipState
